@@ -1,22 +1,96 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>&lt;model-viewer&gt; template</title>
+    <title>Mukah Xplorer - The Traditional Melanau Dress</title>
     <meta charset="utf-8">
     <meta name="description" content="&lt;model-viewer&gt; template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="./styles.css" rel="stylesheet"/>
   </head>
   <body>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet"/>
+    <style> /* Desktop layout (default) */
+      .ui-buttons {
+        position: absolute; top: 20px; left: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 10; }
+      .ui-buttons button {
+        display: flex; color: white; width: 180px; gap: 10px; border: none; border-radius: 12px; font-size: 15px; font-weight: 500;
+        backdrop-filter: blur(6px); align-items: center; justify-content: flex-start; padding: 10px 16px;
+        background: rgba(0,0,0,0.65); transition: 0.2s ease; cursor: pointer;
+        touch-action: manipulation; text-align: left; -webkit-tap-highlight-color: transparent; }
+      .ui-buttons button:hover { background: rgba(0, 0, 0, 0.85); transform: translateY(-2px); }
+      .ui-buttons button:active { transform: scale(0.95); }
+      .ui-buttons button .material-symbols-rounded { font-size: 22px; margin-left: 2px;/*line-height: 0;*/}
+      #ar-button { position: absolute !important; bottom: 20px !important; right: 20px !important; z-index: 20 !important;
+        padding: 10px 16px; /* background: rgba(0, 0, 0, 0.85); color: #000;*/ border: none; border-radius: 10px; font-size: 16px; font-weight: 600; align-items: center; }
+      #ar-prompt { z-index: 20 !important;}
+      .HotspotAnnotation { background: rgba(0,0,0,0.7); padding: 6px 10px; border-radius: 6px; color: white; }
+      /* Mobile layout */
+      @media (max-width: 768px){
+        .ui-buttons { position: absolute; padding: 10px 16px; top: 20px; bottom: auto; left: 50%; transform: translateX(-50%); flex-direction: row; background: rgba(0,0,0,0.3); gap: 16px;
+                    margin-top: 65px;}
+        .ui-buttons button { padding: 0; width: 52px; width: 52px; font-size: 12px; border-radius: 50%; justify-content: center;}
+        .ui-buttons button .label { display: none; }
+        .ui-buttons .material-symbols-rounded { font-size: 26px; }
+        #ar-button { bottom: 18px !important; top: auto !important; right: 18px !important; padding: 8px 12px; font-size: 12px; border-radius: 8px; background: rgba(255,255,255,0.95) } }
+    </style>
+    <div style="position:relative; width:100%; height:100vh; overflow: hidden;">
+      <div class="ui-buttons">
+        <button onclick="window.location.href='https://sites.google.com/poliku.edu.my/mukahxplore/3d-experiences?read_current=1'">
+          <span class ="material-symbols-rounded">home</span>
+          <span class ="label">Homepage</span></button>
+        <button onclick="openVideo()">
+          <span class ="material-symbols-rounded">videocam</span>
+          <span class ="label">Video</span></button>
+        <button onclick="openPhoto()">
+          <span class ="material-symbols-rounded">photo</span>
+          <span class ="label">Photo</span></button>
+        <button onclick="openInfo()">
+          <span class ="material-symbols-rounded">description</span>
+          <span class ="label">Info</span></button>
+        <button onclick="openOuiz()">
+          <span class ="material-symbols-rounded">quiz</span>
+          <span class ="label">Quiz</span></button>
+      </div>
     <!-- <model-viewer> HTML element -->
     <model-viewer src="3d_melanau_dress.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1.75" camera-orbit="-290.4deg 78.42deg 4.599m" field-of-view="30deg" shadow-softness="0.8" auto-rotate>
-      <button class="Hotspot" slot="hotspot-1" data-position="0.3081410664371398m 0.9921769655866632m 0.5206592407731215m" data-normal="0.383563884542305m 0.1528284391212977m 0.9107811014017393m" data-visibility-attribute="visible">
-          <div class="HotspotAnnotation">Melanau Traditional Cloth (Male)</div>
-      </button><button class="Hotspot" slot="hotspot-2" data-position="0.29953977466052734m 0.7252908249745452m -0.512494583787241m" data-normal="0.5358899458314925m 0.17901193611362431m -0.8250919298390766m" data-visibility-attribute="visible">
-          <div class="HotspotAnnotation">Melanau Traditional Cloth (Female)</div>
-      </button><button class="Hotspot" slot="hotspot-3" data-position="-0.7429503866815277m 1.0131136471039421m 0.008803428337023966m" data-normal="-0.2402271916475015m 0.9707142138748066m -0.002193484572741669m" data-visibility-attribute="visible">
-          <div class="HotspotAnnotation">Terendak</div>
-      </button>
+      <button class="Hotspot" slot="hotspot-1" data-position="0.3081410664371398m 0.9921769655866632m 0.5206592407731215m"
+        data-normal="0.383563884542305m 0.1528284391212977m 0.9107811014017393m" data-visibility-attribute="visible">
+          <div class="HotspotAnnotation">Melanau Traditional Cloth (Male)</div></button>
+      <button class="Hotspot" slot="hotspot-2" data-position="0.29953977466052734m 0.7252908249745452m -0.512494583787241m"
+        data-normal="0.5358899458314925m 0.17901193611362431m -0.8250919298390766m" data-visibility-attribute="visible">
+          <div class="HotspotAnnotation">Melanau Traditional Cloth (Female)</div></button>
+      <button class="Hotspot" slot="hotspot-3" data-position="-0.7429503866815277m 1.0131136471039421m 0.008803428337023966m"
+        data-normal="-0.2402271916475015m 0.9707142138748066m -0.002193484572741669m" data-visibility-attribute="visible">
+          <div class="HotspotAnnotation">Terendak</div></button>
+      <!-- Copy & Paste for Audio Hotspot: data-audio="audio_files/audio.mp3" onclick="playAudio(this)">
+      <!-- AUDIO SECTION -->
+      <audio id="hotspot-audio"></audio>
+      <script>
+        let currentButton = null;
+        let audioPlayer = null;
+
+        window.onload = () => {
+          audioPlayer = document.getElementById("hotspot-audio"); };
+        // Toggle play/pause
+        function playAudio(button) { // Get all audio elements
+          const audioSrc = button.getAttribute("data-audio");
+          // if same hotspot clicked again => toggle
+          if (currentButton === button) {
+            if (audioPlayer.paused) {
+              audioPlayer.play(); } 
+            else { 
+              audioPlayer.pause(); }
+            return; }
+          // If switching to another hotspot → stop previous
+          if (currentButton !== null) { audioPlayer.pause();
+            audioPlayer.currentTime = 0; }
+          // Load new audio
+          audioPlayer.src = audioSrc;
+          audioPlayer.play();
+          //
+          currentButton = button; }
+      </script>
+      <!-- AUDIO SECTION ENDS -->
       <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
       </div>
@@ -26,7 +100,7 @@
       <div id="ar-prompt">
           <img src="ar_hand_prompt.png">
       </div>
-    </model-viewer>  
+    </model-viewer></div> 
     <script src="script.js"></script>
     <!-- Loads <model-viewer> for browsers: -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
