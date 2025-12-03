@@ -5,30 +5,82 @@
     <meta charset="utf-8">
     <meta name="description" content="&lt;model-viewer&gt; template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" href="./styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./components/viewer-ui.css"><!--
+    <link type="text/css" href="./styles.css" rel="stylesheet"/>-->
   </head>
   <body>
-    <!-- <model-viewer> HTML element -->
-    <model-viewer src="3d_melanau_dress.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1.75" camera-orbit="-290.4deg 78.42deg 4.599m" field-of-view="30deg" shadow-softness="0.8" auto-rotate>
-      <button class="Hotspot" slot="hotspot-1" data-position="0.3081410664371398m 0.9921769655866632m 0.5206592407731215m" data-normal="0.383563884542305m 0.1528284391212977m 0.9107811014017393m" data-visibility-attribute="visible">
+<!-- Top Navigation Bar -->
+    <header class="topbar">
+      <div class="logo">My WebXR Project</div>
+      <nav class="desktop-nav">
+        <button data-open="home">Home</button>
+        <button data-open="audio">Audio</button>
+        <button data-open="video">Video</button>
+        <button data-open="articles">Articles</button>
+        <button data-open="quiz">Quiz</button>
+      </nav>
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open Menu">☰</button>
+    </header>
+<!-- Slide-up Mobile Drawer -->
+    <div id="mobile-drawer" class="mobile-drawer">
+      <button data-open="home">Home</button>
+      <button data-open="audio">Audio</button>
+      <button data-open="video">Video</button>
+      <button data-open="articles">Articles</button>
+      <button data-open="quiz">Quiz</button>
+    </div>
+<!-- <model-viewer> HTML element. -->
+    <main id="viewerHost" class="viewer-host">
+      <model-viewer 
+        src="./assets/3d_melanau_dress.glb" 
+        ar ar-modes="webxr scene-viewer quick-look" 
+        ar-scale="auto"
+        camera-controls tone-mapping="neutral"
+        poster="./assets/images/poster.webp"
+        shadow-intensity="1.75"
+        camera-orbit="-290.4deg 78.42deg 4.599m"
+        field-of-view="30deg"
+        shadow-softness="0.8"
+        auto-rotate
+        style="width: 100%; height: 100vh">
+<!-- Hotspots. -->        
+        <button class="Hotspot" slot="hotspot-1" 
+          data-position="0.3081410664371398m 0.9921769655866632m 0.5206592407731215m" 
+          data-normal="0.383563884542305m 0.1528284391212977m 0.9107811014017393m" data-visibility-attribute="visible">
           <div class="HotspotAnnotation">Melanau Traditional Cloth (Male)</div>
-      </button><button class="Hotspot" slot="hotspot-2" data-position="0.29953977466052734m 0.7252908249745452m -0.512494583787241m" data-normal="0.5358899458314925m 0.17901193611362431m -0.8250919298390766m" data-visibility-attribute="visible">
+        </button>
+        <button class="Hotspot" slot="hotspot-2"
+          data-position="0.29953977466052734m 0.7252908249745452m -0.512494583787241m"
+          data-normal="0.5358899458314925m 0.17901193611362431m -0.8250919298390766m" data-visibility-attribute="visible">
           <div class="HotspotAnnotation">Melanau Traditional Cloth (Female)</div>
-      </button><button class="Hotspot" slot="hotspot-3" data-position="-0.7429503866815277m 1.0131136471039421m 0.008803428337023966m" data-normal="-0.2402271916475015m 0.9707142138748066m -0.002193484572741669m" data-visibility-attribute="visible">
+        </button>
+        <button class="Hotspot" slot="hotspot-3"
+          data-position="-0.7429503866815277m 1.0131136471039421m 0.008803428337023966m"
+          data-normal="-0.2402271916475015m 0.9707142138748066m -0.002193484572741669m" data-visibility-attribute="visible">
           <div class="HotspotAnnotation">Terendak</div>
-      </button>
-      <div class="progress-bar hide" slot="progress-bar">
+        </button>
+<!-- AR VIEW PROMPT. -->
+        <div class="progress-bar hide" slot="progress-bar">
           <div class="update-bar"></div>
+        </div>
+        <button slot="ar-button" id="ar-button">View in your space</button>
+        <div id="ar-prompt">
+          <img src="./assets/images/ar_hand_prompt.png" alt="AR Prompt">
+        </div>
+      </model-viewer>
+    </main>
+<!-- SLIDE UP CONTENT PANEL. -->
+    <div id="contentPanel" class="content-panel" aria-hidden="true">
+      <div id="contentHeader" class="content-header">
+        <span id="panelTitle">Content</span>
+        <button id="closePanel" aria-label="Close panel">✕</button>
       </div>
-      <button slot="ar-button" id="ar-button">
-          View in your space
-      </button>
-      <div id="ar-prompt">
-          <img src="ar_hand_prompt.png">
-      </div>
-    </model-viewer>  
-    <script src="script.js"></script>
-    <!-- Loads <model-viewer> for browsers: -->
+      <div id="contentBody" class="content-body"></div>
+    </div>
+<!-- Loads <model-viewer> for browsers: -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+    <script type="module" src="./components/ui.js"></script>
+    <script type="module" src="./script.js"></script>
   </body>
 </html>
